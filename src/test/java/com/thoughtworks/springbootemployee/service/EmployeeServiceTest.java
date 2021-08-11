@@ -20,6 +20,7 @@ public class EmployeeServiceTest {
     private EmployeeService employeeService;
     @Mock
     private EmployeeRepository employeeRepository;
+
     @Test
     public void should_return_all_employees_when_getAllEmployees_given_all_employees() {
         //given
@@ -32,4 +33,19 @@ public class EmployeeServiceTest {
         //then
         assertEquals(employees, actualEmployees);
     }
+
+    @Test
+    public void should_return_an_employee_with_id_1_when_getAllEmployeesById_given_all_employees() {
+        //given
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee(1, "Alice", 25, "Female", 10000));
+        employees.add(new Employee(2, "Bob", 25, "Female", 10000));
+        given(employeeRepository.getEmployeesById(1)).willReturn(employees.get(0));
+        //when
+        Employee actualEmployees = employeeService.getEmployeesById(1);
+        //then
+        assertEquals(employees.get(0), actualEmployees);
+    }
+
+
     }

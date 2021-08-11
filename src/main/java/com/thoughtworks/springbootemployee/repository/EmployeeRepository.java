@@ -23,4 +23,8 @@ public class EmployeeRepository {
     public List<Employee> getEmployees() {
         return employees;
     }
+
+    public Employee getEmployeesById(Integer employeeId) {
+        return null;
+    }
 }

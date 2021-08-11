@@ -18,4 +18,8 @@ public class EmployeeService {
     public List<Employee> getAllEmployees() {
         return employeeRepository.getEmployees();
     }
+
+    public Employee getEmployeesById(Integer employeeId) {
+        return null;
+    }
 }
