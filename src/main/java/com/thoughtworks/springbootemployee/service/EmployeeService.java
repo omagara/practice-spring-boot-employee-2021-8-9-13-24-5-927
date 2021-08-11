@@ -24,6 +24,6 @@ public class EmployeeService {
     }
 
     public List<Employee> getEmployeebyPage(Integer page, Integer pageSize) {
-        return null;
+        return employeeRepository.getEmployeebyPage(page,pageSize);
     }
 }

@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Repository
 public class EmployeeRepository {
     private List<Employee> employees = new ArrayList<>();
@@ -32,7 +34,10 @@ public class EmployeeRepository {
     }
 
     public List<Employee> getEmployeebyPage(Integer page, Integer pageSize) {
-        return null;
+        return employees.stream()
+                .skip((page -1) * pageSize)
+                .limit(pageSize)
+                .collect(Collectors.toList());
     }
 }
 
