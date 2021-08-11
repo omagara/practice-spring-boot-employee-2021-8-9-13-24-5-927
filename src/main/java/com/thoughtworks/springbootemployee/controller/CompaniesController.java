@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/companies")
@@ -43,4 +44,11 @@ public class CompaniesController {
                 .orElse(null);
     }
 
+    @GetMapping(path = "/{companyId}/employees")
+    public List<Employee> getEmployeesByCompany (@PathVariable Integer companyId) {
+        return companies.stream()
+                .filter(company -> company.getCompanyId().equals(companyId))
+                .findFirst()
+                .get().getEmployees();
+    }
 }
