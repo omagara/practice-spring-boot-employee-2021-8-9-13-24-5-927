@@ -28,6 +28,6 @@ public class EmployeeService {
     }
 
     public List<Employee> getEmployeebyGender(String gender) {
-        return null;
+        return employeeRepository.getEmployeebyGender(gender);
     }
 }
