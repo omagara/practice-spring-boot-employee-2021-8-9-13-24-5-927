@@ -35,4 +35,12 @@ public class CompaniesController {
         return companies;
     }
 
+    @GetMapping(path = "/{companyId}")
+    public Company getCompanyById(@PathVariable Integer companyId){
+        return companies.stream()
+                .filter(company -> company.getCompanyId().equals(companyId))
+                .findFirst()
+                .orElse(null);
+    }
+
 }
