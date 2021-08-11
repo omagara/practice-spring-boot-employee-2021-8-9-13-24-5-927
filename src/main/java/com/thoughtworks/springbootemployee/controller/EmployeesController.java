@@ -52,4 +52,31 @@ public class EmployeesController {
         return employee;
     }
 
+    @PutMapping (path = "/{employeeId}")
+    public Employee updateEmployeeInfo (@PathVariable Integer employeeId, @RequestBody Employee employeeToBeUpdated){
+        return employees.stream()
+                .filter(employee -> employee.getId().equals(employeeId))
+                .findFirst()
+                .map(employee -> updateEmployee(employee, employeeToBeUpdated))
+                .get();
+    }
+
+    private Employee updateEmployee(Employee employee, Employee employeeToBeUpdated) {
+        if (employeeToBeUpdated.getName() != null){
+            employee.setName(employeeToBeUpdated.getName());
+        }
+        if (employeeToBeUpdated.getGender() != null){
+            employee.setGender(employeeToBeUpdated.getGender());
+        }
+        if (employeeToBeUpdated.getAge() != null){
+            employee.setAge(employeeToBeUpdated.getAge());
+        }
+        if (employeeToBeUpdated.getSalary() != null){
+            employee.setSalary(employeeToBeUpdated.getSalary());
+        }
+
+    return  employee;
+    }
+
+
 }
