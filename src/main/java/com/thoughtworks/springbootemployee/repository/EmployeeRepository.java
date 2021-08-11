@@ -74,5 +74,9 @@ public class EmployeeRepository {
 
         return  employee;
     }
+
+    public Employee deleteEmployee(Integer employeeId) {
+        return null;
+    }
 }
 
