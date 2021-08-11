@@ -14,6 +14,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class EmployeeServiceTest {
@@ -76,6 +78,18 @@ public class EmployeeServiceTest {
         List<Employee> actualEmployees = employeeService.getEmployeebyGender("Male");
         //then
         assertEquals(employees, actualEmployees);
+    }
+
+    @Test
+    public void should_create_employees_when_addNewEmployee_given_employee_information() {
+        //given
+        Employee newEmployee = new Employee(25, "Ramon", 21,"Male",5000);
+        when(employeeRepository.addNewEmployee(newEmployee)).thenReturn(newEmployee);
+
+        //when
+        Employee actualEmployee = employeeService.addNewEmployee(newEmployee);
+        //then
+        assertEquals(25, actualEmployee.getId());
     }
 
 

@@ -45,5 +45,9 @@ public class EmployeeRepository {
                 .filter(employee -> employee.getGender().equalsIgnoreCase(gender))
                 .collect(Collectors.toList());
     }
+
+    public Employee addNewEmployee(Employee employee) {
+        return null;
+    }
 }
 
