@@ -50,5 +50,9 @@ public class EmployeeRepository {
         employees.add(employee);
         return employee;
     }
+
+    public Employee updateEmployeeInfo(Integer employeeId, Employee employeeToBeUpdated) {
+        return null;
+    }
 }
 

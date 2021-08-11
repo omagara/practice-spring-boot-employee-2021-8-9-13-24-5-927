@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -90,6 +91,19 @@ public class EmployeeServiceTest {
         Employee actualEmployee = employeeService.addNewEmployee(newEmployee);
         //then
         assertEquals(25, actualEmployee.getId());
+    }
+
+    @Test
+    public void should_update_an_employee_when_updateEmployeeInfo_given_employee_id() {
+        //given
+        Employee employee = new Employee(25, "Ramon", 21,"Male",5000);
+        Employee updateEmployee = new Employee(25, "Ramon", 22,"Male",5200);
+        when(employeeRepository.updateEmployeeInfo(employee.getId(), employee)).thenReturn(updateEmployee);
+
+        //when
+        Employee actualEmployee = employeeService.updateEmployeeInfo(employee.getId(), employee);
+        //then
+        assertNotEquals(employee.getSalary(), actualEmployee.getSalary());
     }
 
 
