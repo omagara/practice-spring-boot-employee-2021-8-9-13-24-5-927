@@ -25,6 +25,10 @@ public class EmployeeRepository {
     }
 
     public Employee getEmployeesById(Integer employeeId) {
-        return null;
+        return employees.stream()
+                .filter(employee -> employee.getId().equals(employeeId))
+                .findFirst()
+                .orElse(null);
     }
 }
+
