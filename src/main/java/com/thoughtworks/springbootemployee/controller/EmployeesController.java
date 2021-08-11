@@ -61,6 +61,14 @@ public class EmployeesController {
                 .get();
     }
 
+    @DeleteMapping(path = "/{employeeId}")
+    public void deleteEmployee(@PathVariable Integer employeeId){
+        employees.stream()
+                .filter(employee -> employee.getId().equals(employeeId))
+                .findFirst()
+                .ifPresent(employees::remove);
+    }
+
     private Employee updateEmployee(Employee employee, Employee employeeToBeUpdated) {
         if (employeeToBeUpdated.getName() != null){
             employee.setName(employeeToBeUpdated.getName());
