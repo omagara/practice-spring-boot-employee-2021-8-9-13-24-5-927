@@ -32,6 +32,6 @@ public class EmployeeService {
     }
 
     public Employee addNewEmployee(Employee employee) {
-        return null;
+        return employeeRepository.addNewEmployee(employee);
     }
 }
