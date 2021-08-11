@@ -2,10 +2,7 @@ package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +17,12 @@ public class CompaniesController {
         companies.add(new Company(12, "XYZ Company", 300, employees));
         companies.add(new Company(13, "ABC Company", 300, employees));
         companies.add(new Company(14, "EFG Company", 300, employees));
+        companies.add(new Company(15, "XYZ Company", 300, employees));
+        companies.add(new Company(16, "ABC Company", 300, employees));
+        companies.add(new Company(17, "EFG Company", 300, employees));
+        companies.add(new Company(18, "XYZ Company", 300, employees));
+        companies.add(new Company(19, "ABC Company", 300, employees));
+        companies.add(new Company(20, "EFG Company", 300, employees));
 
         employees.add(new Employee(1, "Alice", 25, "Female", 10000));
         employees.add(new Employee(2, "Bob", 25, "Female", 10000));
@@ -51,4 +54,13 @@ public class CompaniesController {
                 .findFirst()
                 .get().getEmployees();
     }
+
+    @GetMapping(params = {"page", "pageSize"})
+    public List<Company> getCompanyByPage (@RequestParam Integer page, @RequestParam Integer pageSize){
+        return companies.stream()
+                .skip((page -1) * pageSize)
+                .limit(pageSize)
+                .collect(Collectors.toList());
+    }
+
 }
