@@ -39,7 +39,7 @@ public class EmployeeService {
         return employeeRepository.updateEmployeeInfo(employeeId, employeeToBeUpdated);
     }
 
-    public Employee deleteEmployee(Integer employeeId) {
-        return null;
+    public void deleteEmployee(Integer employeeId) {
+        employeeRepository.deleteEmployee(employeeId);
     }
 }
