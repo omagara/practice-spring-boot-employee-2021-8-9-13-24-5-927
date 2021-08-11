@@ -36,4 +36,8 @@ public class CompanyRepository {
     public List<Company> getAllCompanies() {
         return companies;
     }
+
+    public Company getCompanyById(Integer companyId) {
+        return null;
+    }
 }
