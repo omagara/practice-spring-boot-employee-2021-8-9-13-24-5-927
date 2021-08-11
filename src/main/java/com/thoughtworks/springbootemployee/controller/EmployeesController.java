@@ -45,6 +45,13 @@ public class EmployeesController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping(params = {"gender"} )
+    public List<Employee> getEmployeeByGender (@RequestParam String gender){
+        return employees.stream()
+                .filter(employee -> employee.getGender().equalsIgnoreCase(gender))
+                .collect(Collectors.toList());
+    }
+
 
 
 }
