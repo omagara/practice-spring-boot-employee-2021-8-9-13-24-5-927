@@ -52,6 +52,11 @@ public class EmployeesController {
                 .collect(Collectors.toList());
     }
 
+    @PostMapping
+    public Employee addNewEmployee (@RequestBody Employee employee){
+        employees.add(employee);
 
+        return employee;
+    }
 
 }
