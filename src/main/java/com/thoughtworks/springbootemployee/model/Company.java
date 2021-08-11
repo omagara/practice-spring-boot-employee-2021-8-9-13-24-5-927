@@ -27,6 +27,10 @@ public class Company {
         return employeesNumber;
     }
 
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
     public List<Employee> getEmployees() {
         return employees;
     }

@@ -69,4 +69,20 @@ public class CompaniesController {
         return company;
     }
 
+    @PutMapping (path = "/{companyId}")
+    public Company updateCompanyInfo (@PathVariable Integer companyId, @RequestBody Company companyToBeUpdated){
+        return companies.stream()
+                .filter(company -> company.getCompanyId().equals(companyId))
+                .findFirst()
+                .map(company -> updateCompany(company, companyToBeUpdated))
+                .get();
+    }
+
+    private Company updateCompany(Company company, Company companyToBeUpdated) {
+        if (companyToBeUpdated.getCompanyName() != null){
+            company.setCompanyName(companyToBeUpdated.getCompanyName());
+        }
+        return company;
+    }
+
 }
