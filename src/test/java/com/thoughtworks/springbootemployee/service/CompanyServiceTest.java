@@ -23,7 +23,7 @@ public class CompanyServiceTest {
     private CompanyRepository companyRepository;
 
     @Test
-    public void should_return_all_companies_when_getAllEmployees_given_companies() {
+    public void should_return_all_companies_when_getAllCompanies_given_companies() {
         //given
         List<Company> companies = new ArrayList<>();
         List<Employee> firstEmployeesList = new ArrayList<>();
@@ -38,6 +38,8 @@ public class CompanyServiceTest {
         //then
         assertEquals(companies, actualCompanies);
     }
+
+
 
 
 }
