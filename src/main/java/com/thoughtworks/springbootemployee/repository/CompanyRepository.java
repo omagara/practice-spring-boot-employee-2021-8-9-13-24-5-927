@@ -34,6 +34,6 @@ public class CompanyRepository {
     }
 
     public List<Company> getAllCompanies() {
-        return null;
+        return companies;
     }
 }
