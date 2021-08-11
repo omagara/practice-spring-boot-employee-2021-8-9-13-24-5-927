@@ -39,5 +39,9 @@ public class EmployeeRepository {
                 .limit(pageSize)
                 .collect(Collectors.toList());
     }
+
+    public List<Employee> getEmployeebyGender(String gender) {
+        return null;
+    }
 }
 
