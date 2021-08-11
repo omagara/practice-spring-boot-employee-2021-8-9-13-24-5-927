@@ -30,5 +30,9 @@ public class EmployeeRepository {
                 .findFirst()
                 .orElse(null);
     }
+
+    public List<Employee> getEmployeebyPage(Integer page, Integer pageSize) {
+        return null;
+    }
 }
 
