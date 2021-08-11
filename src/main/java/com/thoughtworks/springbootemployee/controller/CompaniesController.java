@@ -63,4 +63,10 @@ public class CompaniesController {
                 .collect(Collectors.toList());
     }
 
+    @PostMapping
+    public Company addNewCompany (@RequestBody Company company){
+        companies.add(company);
+        return company;
+    }
+
 }
