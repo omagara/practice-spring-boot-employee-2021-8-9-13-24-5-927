@@ -1,7 +1,7 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.model.Employee;
-import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
+import com.thoughtworks.springbootemployee.repository.RetiringEmployeeRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -9,7 +9,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,7 +23,7 @@ public class EmployeeServiceTest {
     @InjectMocks
     private EmployeeService employeeService;
     @Mock
-    private EmployeeRepository employeeRepository;
+    private RetiringEmployeeRepository retiringEmployeeRepository;
 
     @Test
     public void should_return_all_employees_when_getAllEmployees_given_all_employees() {
@@ -32,7 +31,7 @@ public class EmployeeServiceTest {
             List<Employee> employees = new ArrayList<>();
         employees.add(new Employee(1, "Alice", 25, "Female", 10000));
         employees.add(new Employee(2, "Bob", 25, "Female", 10000));
-        given(employeeRepository.getEmployees()).willReturn(employees);
+        given(retiringEmployeeRepository.getEmployees()).willReturn(employees);
         //when
         List<Employee> actualEmployees = employeeService.getAllEmployees();
         //then
@@ -45,7 +44,7 @@ public class EmployeeServiceTest {
         List<Employee> employees = new ArrayList<>();
         employees.add(new Employee(1, "Alice", 25, "Female", 10000));
         employees.add(new Employee(2, "Bob", 25, "Female", 10000));
-        given(employeeRepository.getEmployeesById(1)).willReturn(employees.get(0));
+        given(retiringEmployeeRepository.getEmployeesById(1)).willReturn(employees.get(0));
         //when
         Employee actualEmployees = employeeService.getEmployeesById(1);
         //then
@@ -60,7 +59,7 @@ public class EmployeeServiceTest {
         employees.add(new Employee(2, "Bob", 25, "Female", 10000));
         employees.add(new Employee(3, "Alice", 25, "Female", 10000));
         employees.add(new Employee(4, "Bob", 25, "Female", 10000));
-        given(employeeRepository.getEmployeebyPage(1, 3)).willReturn(employees.subList(0,3));
+        given(retiringEmployeeRepository.getEmployeebyPage(1, 3)).willReturn(employees.subList(0,3));
         //when
         List<Employee> actualEmployees = employeeService.getEmployeebyPage(1, 3);
         //then
@@ -75,7 +74,7 @@ public class EmployeeServiceTest {
         employees.add(new Employee(2, "Bobby", 26, "Male", 10000));
         employees.add(new Employee(3, "Alicia", 27, "Female", 10000));
         employees.add(new Employee(4, "Bob", 28, "Male", 10000));
-        given(employeeRepository.getEmployeebyGender("Male")).willReturn(employees);
+        given(retiringEmployeeRepository.getEmployeebyGender("Male")).willReturn(employees);
         //when
         List<Employee> actualEmployees = employeeService.getEmployeebyGender("Male");
         //then
@@ -86,7 +85,7 @@ public class EmployeeServiceTest {
     public void should_create_employees_when_addNewEmployee_given_employee_information() {
         //given
         Employee newEmployee = new Employee(25, "Ramon", 21,"Male",5000);
-        when(employeeRepository.addNewEmployee(newEmployee)).thenReturn(newEmployee);
+        when(retiringEmployeeRepository.addNewEmployee(newEmployee)).thenReturn(newEmployee);
 
         //when
         Employee actualEmployee = employeeService.addNewEmployee(newEmployee);
@@ -99,7 +98,7 @@ public class EmployeeServiceTest {
         //given
         Employee employee = new Employee(25, "Ramon", 21,"Male",5000);
         Employee updateEmployee = new Employee(25, "Ramon", 22,"Male",5200);
-        when(employeeRepository.updateEmployeeInfo(employee.getId(), employee)).thenReturn(updateEmployee);
+        when(retiringEmployeeRepository.updateEmployeeInfo(employee.getId(), employee)).thenReturn(updateEmployee);
 
         //when
         Employee actualEmployee = employeeService.updateEmployeeInfo(employee.getId(), employee);
@@ -111,11 +110,11 @@ public class EmployeeServiceTest {
     public void should_delete_an_employee_when_deleteEmployee_given_employee_id() {
         //given
         Employee employee = new Employee(25, "Ramon", 21,"Male",5000);
-        EmployeeService service = new EmployeeService(employeeRepository);
+        EmployeeService service = new EmployeeService(retiringEmployeeRepository);
         //when
         service.deleteEmployee(employee.getId());
         //then
-        verify(employeeRepository, times(1)).deleteEmployee(employee.getId());
+        verify(retiringEmployeeRepository, times(1)).deleteEmployee(employee.getId());
     }
 
 

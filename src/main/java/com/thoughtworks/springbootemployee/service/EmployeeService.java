@@ -1,45 +1,43 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.model.Employee;
-import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.thoughtworks.springbootemployee.repository.RetiringEmployeeRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 @Service
 public class EmployeeService {
-    private EmployeeRepository employeeRepository;
+    private RetiringEmployeeRepository retiringEmployeeRepository;
 
-    public EmployeeService(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
+    public EmployeeService(RetiringEmployeeRepository retiringEmployeeRepository) {
+        this.retiringEmployeeRepository = retiringEmployeeRepository;
     }
 
     public List<Employee> getAllEmployees() {
-        return employeeRepository.getEmployees();
+        return retiringEmployeeRepository.getEmployees();
     }
 
     public Employee getEmployeesById(Integer employeeId) {
-        return employeeRepository.getEmployeesById(employeeId);
+        return retiringEmployeeRepository.getEmployeesById(employeeId);
     }
 
     public List<Employee> getEmployeebyPage(Integer page, Integer pageSize) {
-        return employeeRepository.getEmployeebyPage(page,pageSize);
+        return retiringEmployeeRepository.getEmployeebyPage(page,pageSize);
     }
 
     public List<Employee> getEmployeebyGender(String gender) {
-        return employeeRepository.getEmployeebyGender(gender);
+        return retiringEmployeeRepository.getEmployeebyGender(gender);
     }
 
     public Employee addNewEmployee(Employee employee) {
-        return employeeRepository.addNewEmployee(employee);
+        return retiringEmployeeRepository.addNewEmployee(employee);
     }
 
     public Employee updateEmployeeInfo(Integer employeeId, Employee employeeToBeUpdated) {
-        return employeeRepository.updateEmployeeInfo(employeeId, employeeToBeUpdated);
+        return retiringEmployeeRepository.updateEmployeeInfo(employeeId, employeeToBeUpdated);
     }
 
     public void deleteEmployee(Integer employeeId) {
-        employeeRepository.deleteEmployee(employeeId);
+        retiringEmployeeRepository.deleteEmployee(employeeId);
     }
 }
