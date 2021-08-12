@@ -2,7 +2,7 @@ package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
-import com.thoughtworks.springbootemployee.repository.CompanyRepository;
+import com.thoughtworks.springbootemployee.repository.RetiringCompanyRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,38 +10,38 @@ import java.util.List;
 @Service
 public class CompanyService {
 
-    private CompanyRepository companyRepository;
+    private RetiringCompanyRepository retiringCompanyRepository;
 
 
-    public CompanyService(CompanyRepository companyRepository) {
-        this.companyRepository = companyRepository;
+    public CompanyService(RetiringCompanyRepository retiringCompanyRepository) {
+        this.retiringCompanyRepository = retiringCompanyRepository;
     }
 
     public List<Company> getAllCompanies() {
-        return companyRepository.getAllCompanies();
+        return retiringCompanyRepository.getAllCompanies();
     }
 
     public Company getCompanyById(Integer companyId) {
-        return companyRepository.getCompanyById(companyId);
+        return retiringCompanyRepository.getCompanyById(companyId);
     }
 
     public List<Employee> getEmployeesByCompany(Integer companyId) {
-        return companyRepository.getEmployeesByCompany(companyId);
+        return retiringCompanyRepository.getEmployeesByCompany(companyId);
     }
 
     public List<Company> getCompanyByPage(Integer page, Integer pageSize) {
-        return companyRepository.getCompanyByPage(page,pageSize);
+        return retiringCompanyRepository.getCompanyByPage(page,pageSize);
     }
 
     public Company addNewCompany(Company company) {
-        return companyRepository.addNewCompany(company);
+        return retiringCompanyRepository.addNewCompany(company);
     }
 
     public Company updateCompanyInfo(Integer companyId, Company companyToBeUpdated) {
-        return companyRepository.updateCompanyInfo(companyId,companyToBeUpdated);
+        return retiringCompanyRepository.updateCompanyInfo(companyId,companyToBeUpdated);
     }
 
     public void deleteCompany(Integer companyId) {
-        companyRepository.deleteCompany(companyId);
+        retiringCompanyRepository.deleteCompany(companyId);
     }
 }
