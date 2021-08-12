@@ -47,9 +47,23 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$[0].id").isNumber())
                     .andExpect(jsonPath("$[0].name").value("Ramon"))
-                    .andExpect(jsonPath("$[0].age").value("21"))
+                    .andExpect(jsonPath("$[0].age").value(21))
                     .andExpect(jsonPath("$[0].gender").value("Male"))
-                    .andExpect(jsonPath("$[0].salary").value("1000"));
+                    .andExpect(jsonPath("$[0].salary").value(1000));
+        }
+
+        @Test
+        void should_return_employee_when_getEmployeeByID_api() throws Exception {
+            //given
+            int employeeId = employees.get(0).getId();
+            //when
+            //then
+            mockMvc.perform(MockMvcRequestBuilders.get("/employees/{employeeId}", employeeId))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.name").value("Ramon"))
+                    .andExpect(jsonPath("$.age").value(21))
+                    .andExpect(jsonPath("$.gender").value("Male"))
+                    .andExpect(jsonPath("$.salary").value(1000));
         }
 
     }
