@@ -10,6 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -46,7 +47,7 @@ public class EmployeeServiceTest {
         employees.add(new Employee(2, "Bob", 25, "Female", 10000));
         given(retiringEmployeeRepository.getEmployeesById(1)).willReturn(employees.get(0));
         //when
-        Employee actualEmployees = employeeService.getEmployeesById(1);
+        Optional<Employee> actualEmployees = employeeService.getEmployeesById(1);
         //then
         assertEquals(employees.get(0), actualEmployees);
     }

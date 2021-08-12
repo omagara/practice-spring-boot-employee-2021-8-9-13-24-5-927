@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class EmployeeService {
     @Autowired
@@ -22,8 +24,8 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public Employee getEmployeesById(Integer employeeId) {
-        return retiringEmployeeRepository.getEmployeesById(employeeId);
+    public Optional<Employee> getEmployeesById(Integer employeeId) {
+        return employeeRepository.findById(employeeId);
     }
 
     public List<Employee> getEmployeebyPage(Integer page, Integer pageSize) {
