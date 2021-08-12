@@ -2,6 +2,7 @@ package com.thoughtworks.springbootemployee.integration;
 
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         private MockMvc mockMvc;
         @Autowired
         private EmployeeRepository employeeRepository;
-
+        @AfterEach
+        void tearDown(){
+            employeeRepository.deleteAll();
+        }
         private List<Employee> employees;
         @BeforeEach
         public void data() {
@@ -44,6 +48,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         @Test
         void should_return_all_employees_when_getAllEmployees() throws Exception {
             //given
+            employeeRepository.save(employees.get(0));
             //when
             //then
             mockMvc.perform(MockMvcRequestBuilders.get("/employees"))
@@ -58,7 +63,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         @Test
         void should_return_employee_when_getEmployeeByID_api() throws Exception {
             //given
-            int employeeId = employees.get(0).getId();
+            Employee employee = employeeRepository.save(employees.get(0));
+            int employeeId = employee.getId();
             //when
             //then
             mockMvc.perform(MockMvcRequestBuilders.get("/employees/{employeeId}", employeeId))
@@ -72,6 +78,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         @Test
         void should_return_two_employees_when_getEmployeeByPage_api_given_page_2_pag_size_2() throws Exception {
             //given
+            employeeRepository.save(employees.get(0));
+            employeeRepository.save(employees.get(1));
+            employeeRepository.save(employees.get(2));
+            employeeRepository.save(employees.get(3));
+
             //when
             //then
             mockMvc.perform(MockMvcRequestBuilders.get("/employees?page=2&pageSize=2"))
@@ -82,6 +93,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         @Test
         void should_return_male_employees_when_getEmployeeByGender_api() throws Exception {
             //given
+            employeeRepository.save(employees.get(0));
             //when
             //then
             mockMvc.perform(MockMvcRequestBuilders.get("/employees?gender=Male"))
@@ -114,7 +126,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         @Test
         void should_update_an_employee_when_updateEmployeeInfo_api() throws Exception {
             //given
-            int employeeId = employees.get(0).getId();
+            Employee employee = employeeRepository.save(employees.get(0));
+            int employeeId = employee.getId();
             String updatedEmployeeInfo = "{\n" +
                     "        \"age\": 34,\n" +
                     "        \"salary\": 2500\n" +
