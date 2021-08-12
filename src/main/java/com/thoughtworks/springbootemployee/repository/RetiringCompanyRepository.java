@@ -13,25 +13,6 @@ public class RetiringCompanyRepository {
     private List<Company> companies = new ArrayList<>();
     public RetiringCompanyRepository(){
         List<Employee> firstEmployeesList = new ArrayList<>();
-        firstEmployeesList.add(new Employee(1, "Alice", 25, "Female", 10000));
-        firstEmployeesList.add(new Employee(2, "Bob", 25, "Female", 10000));
-
-        List<Employee> secondEmployeesList = new ArrayList<>();
-        secondEmployeesList.add(new Employee(3, "Catnice", 25, "Female", 10000));
-        secondEmployeesList.add(new Employee(4, "Doggo", 25, "Male", 10000));
-        secondEmployeesList.add(new Employee(5, "Edd", 25, "Male", 10000));
-
-        companies.add(new Company(12, "XYZ Company", 2, firstEmployeesList));
-        companies.add(new Company(13, "ABC Company", 3, secondEmployeesList));
-        companies.add(new Company(14, "EFG Company", 2, firstEmployeesList));
-        companies.add(new Company(15, "XYZ Company", 3, secondEmployeesList));
-        companies.add(new Company(16, "ABC Company", 2, firstEmployeesList));
-        companies.add(new Company(17, "EFG Company", 3, secondEmployeesList));
-        companies.add(new Company(18, "XYZ Company", 2, firstEmployeesList));
-
-
-
-
     }
 
     public List<Company> getAllCompanies() {
@@ -69,7 +50,7 @@ public class RetiringCompanyRepository {
                 .filter(company -> company.getCompanyId().equals(companyId))
                 .findFirst()
                 .map(company -> updateCompany(company, companyToBeUpdated))
-                .get(); //TODO: IsPresent Throw Exception
+                .get();
     }
     private Company updateCompany(Company company, Company companyToBeUpdated) {
         if (companyToBeUpdated.getCompanyName() != null){
