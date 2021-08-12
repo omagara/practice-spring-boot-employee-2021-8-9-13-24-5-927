@@ -5,7 +5,6 @@ import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import com.thoughtworks.springbootemployee.repository.RetiringEmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,7 +42,27 @@ public class EmployeeService {
     }
 
     public Employee updateEmployeeInfo(Integer employeeId, Employee employeeToBeUpdated) {
-        return retiringEmployeeRepository.updateEmployeeInfo(employeeId, employeeToBeUpdated);
+        return employeeRepository.findById(employeeId)
+                .map(employee -> updateEmployee(employee,employeeToBeUpdated))
+                .orElse(null);
+
+
+    }
+    private Employee updateEmployee(Employee employee, Employee employeeToBeUpdated) {
+        if (employeeToBeUpdated.getName() != null){
+            employee.setName(employeeToBeUpdated.getName());
+        }
+        if (employeeToBeUpdated.getGender() != null){
+            employee.setGender(employeeToBeUpdated.getGender());
+        }
+        if (employeeToBeUpdated.getAge() != null){
+            employee.setAge(employeeToBeUpdated.getAge());
+        }
+        if (employeeToBeUpdated.getSalary() != null){
+            employee.setSalary(employeeToBeUpdated.getSalary());
+        }
+
+        return  employeeRepository.save(employee);
     }
 
     public void deleteEmployee(Integer employeeId) {
