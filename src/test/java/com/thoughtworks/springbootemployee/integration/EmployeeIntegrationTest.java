@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -130,6 +131,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                     .andExpect(jsonPath("$.salary").value(2500));
         }
 
+        @Test
+        void should_delete_an_employee_when_deleteEmployee_api() throws Exception {
+            //given
+            Employee employee = employeeRepository.save(employees.get(0));
 
+            //when
+            int employeeId = employee.getId();
+            mockMvc.perform(MockMvcRequestBuilders.delete("/employees/{employeeId}", employeeId)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk());
+        }
 
     }
