@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
@@ -103,6 +104,21 @@ public class CompanyServiceTest {
         Company actualCompany = companyService.addNewCompany(newCompany);
         //then
         assertEquals(15, actualCompany.getCompanyId());
+    }
+
+    @Test
+    public void should_update__company_information_when_updateCompanyInfo_given_company_id() {
+        //given
+        List<Employee> firstEmployeesList = new ArrayList<>();
+        firstEmployeesList.add(new Employee(1, "Alice", 25, "Female", 10000));
+        firstEmployeesList.add(new Employee(2, "Bob", 25, "Female", 10000));
+        Company company = new Company(15, "XYZ Company", 3, firstEmployeesList);
+        Company updatedCompany = new Company(15, "Junior Company", 3, firstEmployeesList);
+        when(companyRepository.updateCompanyInfo(company.getCompanyId(), company)).thenReturn(updatedCompany);
+        //when
+        Company actualCompany = companyService.updateCompanyInfo(company.getCompanyId(), company);
+        //then
+        assertNotEquals(company.getCompanyName(), actualCompany.getCompanyName());
     }
 
 
