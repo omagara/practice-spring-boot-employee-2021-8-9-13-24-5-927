@@ -66,6 +66,6 @@ public class EmployeeService {
     }
 
     public void deleteEmployee(Integer employeeId) {
-        retiringEmployeeRepository.deleteEmployee(employeeId);
+        employeeRepository.deleteById(employeeId);
     }
 }
