@@ -26,56 +26,31 @@ public class CompaniesController {
 
     @GetMapping(path = "/{companyId}")
     public Company getCompanyById(@PathVariable Integer companyId){
-        return companies.stream()
-                .filter(company -> company.getCompanyId().equals(companyId))
-                .findFirst()
-                .orElse(null);
+        return companyService.getCompanyById(companyId);
     }
 
     @GetMapping(path = "/{companyId}/employees")
     public List<Employee> getEmployeesByCompany (@PathVariable Integer companyId) {
-        return companies.stream()
-                .filter(company -> company.getCompanyId().equals(companyId))
-                .findFirst()
-                .get().getEmployees();
+        return companyService.getEmployeesByCompany(companyId);
     }
 
     @GetMapping(params = {"page", "pageSize"})
     public List<Company> getCompanyByPage (@RequestParam Integer page, @RequestParam Integer pageSize){
-        return companies.stream()
-                .skip((page -1) * pageSize)
-                .limit(pageSize)
-                .collect(Collectors.toList());
+        return companyService.getCompanyByPage(page, pageSize);
     }
 
     @PostMapping
     public Company addNewCompany (@RequestBody Company company){
-        companies.add(company);
-        return company;
+        return companyService.addNewCompany(company);
     }
 
     @PutMapping (path = "/{companyId}")
     public Company updateCompanyInfo (@PathVariable Integer companyId, @RequestBody Company companyToBeUpdated){
-        return companies.stream()
-                .filter(company -> company.getCompanyId().equals(companyId))
-                .findFirst()
-                .map(company -> updateCompany(company, companyToBeUpdated))
-                .get();
+        return companyService.updateCompanyInfo(companyId,companyToBeUpdated);
     }
 
     @DeleteMapping(path = "/{companyId}")
     public void deleteCompany(@PathVariable Integer companyId){
-        companies.stream()
-                .filter(company -> company.getCompanyId().equals(companyId))
-                .findFirst()
-                .ifPresent(company -> companies.remove(company));
+        companyService.deleteCompany(companyId);
     }
-
-    private Company updateCompany(Company company, Company companyToBeUpdated) {
-        if (companyToBeUpdated.getCompanyName() != null){
-            company.setCompanyName(companyToBeUpdated.getCompanyName());
-        }
-        return company;
-    }
-
 }

@@ -89,7 +89,7 @@ public class CompanyServiceTest {
         companies.add(new Company(16, "ABC Company", 2, firstEmployeesList));
         given(companyRepository.getCompanyByPage(1, 2)).willReturn(companies.subList(0,2));
         //when
-        List<Company> actualCompanies = companyService.getEmployeebyPage(1, 2);
+        List<Company> actualCompanies = companyService.getCompanyByPage(1, 2);
         //then
         assertEquals(companies.subList(0,2), actualCompanies);
     }
