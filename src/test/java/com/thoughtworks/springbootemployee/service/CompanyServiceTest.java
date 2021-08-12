@@ -56,6 +56,23 @@ public class CompanyServiceTest {
         assertEquals(companies.get(0), actualCompany);
     }
 
+    @Test
+    public void should_return_employees_with_company_id_12_when_getEmployeesByCompany_given_companies() {
+        //given
+        List<Company> companies = new ArrayList<>();
+        List<Employee> firstEmployeesList = new ArrayList<>();
+        firstEmployeesList.add(new Employee(1, "Alice", 25, "Female", 10000));
+        firstEmployeesList.add(new Employee(2, "Bob", 25, "Female", 10000));
+        companies.add(new Company(12, "XYZ Company", 2, firstEmployeesList));
+        companies.add(new Company(14, "EFG Company", 2, firstEmployeesList));
+        companies.add(new Company(16, "ABC Company", 2, firstEmployeesList));
+        given(companyRepository.getEmployeesByCompany(12)).willReturn(companies.get(0).getEmployees());
+        //when
+        List<Employee> actualEmployees = companyService.getEmployeesByCompany(12);
+        //then
+        assertEquals(companies.get(0).getEmployees(), actualEmployees);
+    }
+
 
 
 
