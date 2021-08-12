@@ -78,5 +78,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                     .andExpect(jsonPath("$.*", hasSize(2)));
         }
 
+        @Test
+        void should_return_male_employees_when_getEmployeeByGender_api() throws Exception {
+            //given
+            //when
+            //then
+            mockMvc.perform(MockMvcRequestBuilders.get("/employees?gender=Male"))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$[0].gender").value("Male"));
+        }
+
 
     }
