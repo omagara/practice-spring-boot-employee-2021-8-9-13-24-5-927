@@ -30,6 +30,6 @@ public class CompanyService {
     }
 
     public List<Company> getEmployeebyPage(Integer page, Integer pageSize) {
-        return null;
+        return companyRepository.getCompanyByPage(page,pageSize);
     }
 }
