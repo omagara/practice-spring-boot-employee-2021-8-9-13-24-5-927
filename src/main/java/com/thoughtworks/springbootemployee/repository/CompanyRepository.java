@@ -63,4 +63,18 @@ public class CompanyRepository {
         companies.add(company);
         return company;
     }
+
+    public Company updateCompanyInfo(Integer companyId, Company companyToBeUpdated) {
+        return companies.stream()
+                .filter(company -> company.getCompanyId().equals(companyId))
+                .findFirst()
+                .map(company -> updateCompany(company, companyToBeUpdated))
+                .get(); //TODO: IsPresent Throw Exception
+    }
+    private Company updateCompany(Company company, Company companyToBeUpdated) {
+        if (companyToBeUpdated.getCompanyName() != null){
+            company.setCompanyName(companyToBeUpdated.getCompanyName());
+        }
+        return company;
+    }
 }
