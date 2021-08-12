@@ -19,7 +19,7 @@ public class EmployeeService {
     }
 
     public List<Employee> getAllEmployees() {
-        return retiringEmployeeRepository.getEmployees();
+        return employeeRepository.findAll();
     }
 
     public Employee getEmployeesById(Integer employeeId) {
