@@ -88,5 +88,28 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                     .andExpect(jsonPath("$[0].gender").value("Male"));
         }
 
+        @Test
+        void should_create_an_employee_when_addNewEmployee_api() throws Exception {
+            //given
+            String newEmployee = "{\n" +
+                    "        \"id\": 3,\n" +
+                    "        \"name\": \"Gary\",\n" +
+                    "        \"age\": 28,\n" +
+                    "        \"gender\": \"Male\",\n" +
+                    "        \"salary\": 1900\n" +
+                    "}";
+            //when
+            //then
+            mockMvc.perform(MockMvcRequestBuilders.post("/employees")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(newEmployee))
+                    .andExpect(status().isCreated())
+                    .andExpect(jsonPath("$.name").value("Gary"))
+                    .andExpect(jsonPath("$.age").value(28))
+                    .andExpect(jsonPath("$.gender").value("Male"))
+                    .andExpect(jsonPath("$.salary").value(1900));
+        }
+
+
 
     }
