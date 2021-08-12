@@ -4,6 +4,8 @@ import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import com.thoughtworks.springbootemployee.repository.RetiringEmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +31,7 @@ public class EmployeeService {
     }
 
     public List<Employee> getEmployeebyPage(Integer page, Integer pageSize) {
-        return retiringEmployeeRepository.getEmployeebyPage(page,pageSize);
+        return employeeRepository.findAll(PageRequest.of(page-1, pageSize)).getContent();
     }
 
     public List<Employee> getEmployeebyGender(String gender) {
