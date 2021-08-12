@@ -73,6 +73,24 @@ public class CompanyServiceTest {
         assertEquals(companies.get(0).getEmployees(), actualEmployees);
     }
 
+    @Test
+    public void should_return_the_first_2_companies_when_getCompanyByPage_given_page_1_page_size_2() {
+        //given
+        List<Company> companies = new ArrayList<>();
+        List<Employee> firstEmployeesList = new ArrayList<>();
+        firstEmployeesList.add(new Employee(1, "Alice", 25, "Female", 10000));
+        firstEmployeesList.add(new Employee(2, "Bob", 25, "Female", 10000));
+        companies.add(new Company(12, "XYZ Company", 2, firstEmployeesList));
+        companies.add(new Company(14, "EFG Company", 2, firstEmployeesList));
+        companies.add(new Company(16, "ABC Company", 2, firstEmployeesList));
+        given(companyRepository.getCompanyByPage(1, 2)).willReturn(companies.subList(0,2));
+        //when
+        List<Company> actualCompanies = companyService.getEmployeebyPage(1, 2);
+        //then
+        assertEquals(companies.subList(0,2), actualCompanies);
+    }
+
+
 
 
 

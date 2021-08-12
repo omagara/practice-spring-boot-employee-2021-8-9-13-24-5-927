@@ -50,4 +50,8 @@ public class CompanyRepository {
                 .findFirst()
                 .get().getEmployees();
     }
+
+    public List<Company> getCompanyByPage(Integer page, Integer pageSize) {
+        return null;
+    }
 }
