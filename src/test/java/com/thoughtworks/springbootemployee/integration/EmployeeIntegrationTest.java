@@ -110,6 +110,26 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                     .andExpect(jsonPath("$.salary").value(1900));
         }
 
+        @Test
+        void should_update_an_employee_when_updateEmployeeInfo_api() throws Exception {
+            //given
+            int employeeId = employees.get(0).getId();
+            String updatedEmployeeInfo = "{\n" +
+                    "        \"age\": 34,\n" +
+                    "        \"salary\": 2500\n" +
+                    "}\n";
+
+
+            //when
+            //then
+            mockMvc.perform(MockMvcRequestBuilders.put("/employees/{employeeID}", employeeId)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(updatedEmployeeInfo))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.age").value(34))
+                    .andExpect(jsonPath("$.salary").value(2500));
+        }
+
 
 
     }
