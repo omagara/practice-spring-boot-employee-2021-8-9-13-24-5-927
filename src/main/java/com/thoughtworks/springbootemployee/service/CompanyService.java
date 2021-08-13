@@ -6,6 +6,7 @@ import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import com.thoughtworks.springbootemployee.repository.RetiringCompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,7 +38,7 @@ public class CompanyService {
     }
 
     public List<Company> getCompanyByPage(Integer page, Integer pageSize) {
-        return retiringCompanyRepository.getCompanyByPage(page,pageSize);
+        return companyRepository.findAll(PageRequest.of(page-1,pageSize)).getContent();
     }
 
     public Company addNewCompany(Company company) {
