@@ -2,6 +2,7 @@ package com.thoughtworks.springbootemployee.integration;
 
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.matchesPattern;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -95,19 +97,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
             //given
             employeeRepository.save(employees.get(0));
             employeeRepository.save(employees.get(1));
-            employeeRepository.save(employees.get(2));
+            employeeRepository.save(employees.get(4));
             //when
-
             //then
-
             String gender = "Male";
-
             mockMvc.perform(MockMvcRequestBuilders.get("/employees?gender={gender}", gender))
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("$[0].name").value("Ramon"))
-                    .andExpect(jsonPath("$[0].gender").value("Male"))
-                    .andExpect(jsonPath("$[1].name").value("Bob"))
-                    .andExpect(jsonPath("$[1].gender").value("Male"));
+                   .andExpect(status().isOk())
+                   .andExpect(jsonPath("$[*].gender", Matchers.hasItems("Male")));
         }
 
         @Test
