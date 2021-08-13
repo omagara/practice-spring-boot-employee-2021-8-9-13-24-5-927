@@ -46,7 +46,16 @@ public class CompanyService {
     }
 
     public Company updateCompanyInfo(Integer companyId, Company companyToBeUpdated) {
-        return retiringCompanyRepository.updateCompanyInfo(companyId,companyToBeUpdated);
+        return companyRepository.findById(companyId)
+                .map(company -> updateCompany(company,companyToBeUpdated))
+                .orElse(null);
+    }
+
+    private Company updateCompany(Company company, Company companyToBeUpdated) {
+        if (companyToBeUpdated.getCompanyName() != null) {
+            company.setCompanyName(companyToBeUpdated.getCompanyName());
+        }
+        return companyRepository.save(company);
     }
 
     public void deleteCompany(Integer companyId) {
