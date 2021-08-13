@@ -3,25 +3,23 @@ package com.thoughtworks.springbootemployee.controller;
 import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.service.CompanyService;
-import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/companies")
 public class CompaniesController {
-    List<Company> companies = new ArrayList<>();
-    List<Employee> employees = new ArrayList<>();
+
     @Autowired
     private CompanyService companyService;
 
     @GetMapping
     public List<Company> getAllCompanies(){
-        return companies;
+        return companyService.getAllCompanies();
     }
 
     @GetMapping(path = "/{companyId}")
