@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.service;
 
+import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import com.thoughtworks.springbootemployee.repository.RetiringEmployeeRepository;
@@ -25,8 +26,9 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public Optional<Employee> getEmployeesById(Integer employeeId) {
-        return employeeRepository.findById(employeeId);
+    public Employee getEmployeesById(Integer employeeId) {
+        return employeeRepository.findById(employeeId)
+                .orElseThrow(()->new EmployeeNotFoundException("Employee ID not found."));
     }
 
     public List<Employee> getEmployeebyPage(Integer page, Integer pageSize) {

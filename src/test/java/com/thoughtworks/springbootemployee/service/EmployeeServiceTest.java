@@ -47,7 +47,7 @@ public class EmployeeServiceTest {
         employees.add(new Employee(2, "Bob", 25, "Female", 10000));
         given(retiringEmployeeRepository.getEmployeesById(1)).willReturn(employees.get(0));
         //when
-        Optional<Employee> actualEmployees = employeeService.getEmployeesById(1);
+        Employee actualEmployees = employeeService.getEmployeesById(1);
         //then
         assertEquals(employees.get(0), actualEmployees);
     }
