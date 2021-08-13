@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class CompanyService {
@@ -28,8 +28,8 @@ public class CompanyService {
         return companyRepository.findAll();
     }
 
-    public Company getCompanyById(Integer companyId) {
-        return retiringCompanyRepository.getCompanyById(companyId);
+    public Optional<Company> getCompanyById(Integer companyId) {
+        return companyRepository.findById(companyId);
     }
 
     public List<Employee> getEmployeesByCompany(Integer companyId) {

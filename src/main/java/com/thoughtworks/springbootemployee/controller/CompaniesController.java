@@ -6,7 +6,6 @@ import com.thoughtworks.springbootemployee.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +22,7 @@ public class CompaniesController {
     }
 
     @GetMapping(path = "/{companyId}")
-    public Company getCompanyById(@PathVariable Integer companyId){
+    public Optional<Company> getCompanyById(@PathVariable Integer companyId){
         return companyService.getCompanyById(companyId);
     }
 
