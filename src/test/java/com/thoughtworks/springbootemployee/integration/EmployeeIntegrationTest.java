@@ -94,11 +94,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         void should_return_male_employees_when_getEmployeeByGender_api() throws Exception {
             //given
             employeeRepository.save(employees.get(0));
+            employeeRepository.save(employees.get(1));
+            employeeRepository.save(employees.get(2));
             //when
+
             //then
-            mockMvc.perform(MockMvcRequestBuilders.get("/employees?gender=Male"))
+
+            String gender = "Male";
+
+            mockMvc.perform(MockMvcRequestBuilders.get("/employees?gender={gender}", gender))
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$[0].gender").value("Male"));
+                    .andExpect(jsonPath("$[0].name").value("Ramon"))
+                    .andExpect(jsonPath("$[0].gender").value("Male"))
+                    .andExpect(jsonPath("$[1].name").value("Bob"))
+                    .andExpect(jsonPath("$[1].gender").value("Male"));
         }
 
         @Test
