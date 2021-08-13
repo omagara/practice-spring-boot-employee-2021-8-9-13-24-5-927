@@ -29,10 +29,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         private MockMvc mockMvc;
         @Autowired
         private EmployeeRepository employeeRepository;
+
         @AfterEach
         void tearDown(){
             employeeRepository.deleteAll();
         }
+
         private List<Employee> employees;
         @BeforeEach
         public void employeesInformation() {
@@ -84,7 +86,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
             employeeRepository.save(employees.get(1));
             employeeRepository.save(employees.get(2));
             employeeRepository.save(employees.get(3));
-
             //when
             //then
             mockMvc.perform(MockMvcRequestBuilders.get("/employees?page=2&pageSize=2"))
@@ -137,8 +138,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                     "        \"age\": 34,\n" +
                     "        \"salary\": 2500\n" +
                     "}\n";
-
-
             //when
             //then
             mockMvc.perform(MockMvcRequestBuilders.put("/employees/{employeeID}", employeeId)
@@ -153,7 +152,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         void should_delete_an_employee_when_deleteEmployee_api() throws Exception {
             //given
             Employee employee = employeeRepository.save(employees.get(0));
-
             //when
             int employeeId = employee.getId();
             mockMvc.perform(MockMvcRequestBuilders.delete("/employees/{employeeId}", employeeId)
