@@ -20,8 +20,6 @@ public class Employee {
         return companyId;
     }
 
-
-
     public Employee() {
 
     }
