@@ -42,7 +42,7 @@ public class CompanyService {
     }
 
     public Company addNewCompany(Company company) {
-        return retiringCompanyRepository.addNewCompany(company);
+        return companyRepository.save(company);
     }
 
     public Company updateCompanyInfo(Integer companyId, Company companyToBeUpdated) {
