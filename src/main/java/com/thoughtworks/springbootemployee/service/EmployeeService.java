@@ -44,9 +44,10 @@ public class EmployeeService {
     }
 
     public Employee updateEmployeeInfo(Integer employeeId, Employee employeeToBeUpdated) {
-        return employeeRepository.findById(employeeId)
+        Employee updatedEmployee = employeeRepository.findById(employeeId)
                 .map(employee -> updateEmployee(employee,employeeToBeUpdated))
-                .orElse(null);
+                .orElseThrow(()->new EmployeeNotFoundException("Employee ID not found."));
+        return employeeRepository.save(updatedEmployee);
 
 
     }
@@ -63,8 +64,10 @@ public class EmployeeService {
         if (employeeToBeUpdated.getSalary() != null){
             employee.setSalary(employeeToBeUpdated.getSalary());
         }
-
-        return  employeeRepository.save(employee);
+        if (employeeToBeUpdated.getCompanyId() != null){
+            employee.setCompanyId(employeeToBeUpdated.getCompanyId());
+        }
+        return  employee;
     }
 
     public void deleteEmployee(Integer employeeId) {

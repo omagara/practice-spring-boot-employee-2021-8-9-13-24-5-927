@@ -16,6 +16,10 @@ public class Employee {
     private Integer salary;
     private Integer companyId;
 
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
+
     public Integer getCompanyId() {
         return companyId;
     }
