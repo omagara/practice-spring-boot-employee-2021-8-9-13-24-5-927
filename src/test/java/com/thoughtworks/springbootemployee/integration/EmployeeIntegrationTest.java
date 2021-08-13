@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         }
         private List<Employee> employees;
         @BeforeEach
-        public void data() {
+        public void employeesInformation() {
             employees = Arrays.asList(
                     (new Employee(1, "Ramon", 21, "Male", 1000)),
                     (new Employee(2, "Bob", 21, "Male", 1100)),
