@@ -33,7 +33,7 @@ public class CompanyService {
     }
 
     public List<Employee> getEmployeesByCompany(Integer companyId) {
-        return employeeRepository.findAllByCompanyId(companyId);
+        return employeeRepository.findByCompanyId(companyId);
     }
 
     public List<Company> getCompanyByPage(Integer page, Integer pageSize) {
