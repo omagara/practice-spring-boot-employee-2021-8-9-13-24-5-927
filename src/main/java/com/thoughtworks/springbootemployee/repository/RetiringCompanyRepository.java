@@ -1,7 +1,7 @@
 package com.thoughtworks.springbootemployee.repository;
 
-import com.thoughtworks.springbootemployee.model.Company;
-import com.thoughtworks.springbootemployee.model.Employee;
+import com.thoughtworks.springbootemployee.entity.Company;
+import com.thoughtworks.springbootemployee.entity.Employee;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -21,14 +21,14 @@ public class RetiringCompanyRepository {
 
     public Company getCompanyById(Integer companyId) {
         return companies.stream()
-                .filter(company -> company.getCompanyId().equals(companyId))
+                .filter(company -> company.getId().equals(companyId))
                 .findFirst()
                 .orElse(null);
     }
 
     public List<Employee> getEmployeesByCompany(Integer companyId) {
         return companies.stream()
-                .filter(company -> company.getCompanyId().equals(companyId))
+                .filter(company -> company.getId().equals(companyId))
                 .findFirst()
                 .get().getEmployees();
     }
@@ -47,7 +47,7 @@ public class RetiringCompanyRepository {
 
     public Company updateCompanyInfo(Integer companyId, Company companyToBeUpdated) {
         return companies.stream()
-                .filter(company -> company.getCompanyId().equals(companyId))
+                .filter(company -> company.getId().equals(companyId))
                 .findFirst()
                 .map(company -> updateCompany(company, companyToBeUpdated))
                 .get();
@@ -61,7 +61,7 @@ public class RetiringCompanyRepository {
 
     public void deleteCompany(Integer companyId) {
         companies.stream()
-                .filter(company -> company.getCompanyId().equals(companyId))
+                .filter(company -> company.getId().equals(companyId))
                 .findFirst()
                 .ifPresent(company -> companies.remove(company));
     }

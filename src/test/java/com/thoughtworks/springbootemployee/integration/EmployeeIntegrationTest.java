@@ -1,5 +1,5 @@
 package com.thoughtworks.springbootemployee.integration;
-import com.thoughtworks.springbootemployee.model.Employee;
+import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
