@@ -38,7 +38,7 @@ public class CompanyService {
     }
 
     public List<Company> getCompanyByPage(Integer page, Integer pageSize) {
-        return companyRepository.findAll(PageRequest.of(page-1,pageSize)).getContent();
+        return companyRepository.findAll(PageRequest.of(page - 1, pageSize)).getContent();
     }
 
     public Company addNewCompany(Company company) {
@@ -47,7 +47,7 @@ public class CompanyService {
 
     public Company updateCompanyInfo(Integer companyId, Company companyToBeUpdated) {
         return companyRepository.findById(companyId)
-                .map(company -> updateCompany(company,companyToBeUpdated))
+                .map(company -> updateCompany(company, companyToBeUpdated))
                 .orElse(null);
     }
 
@@ -59,6 +59,6 @@ public class CompanyService {
     }
 
     public void deleteCompany(Integer companyId) {
-        retiringCompanyRepository.deleteCompany(companyId);
+        companyRepository.deleteById(companyId);
     }
 }
