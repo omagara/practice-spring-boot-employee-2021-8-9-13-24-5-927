@@ -67,17 +67,17 @@ public class EmployeeServiceTest {
         assertEquals(employees.get(0), actualEmployees);
     }
 
-//    @Test
-//    public void should_return_the_first_3_employees_when_getEmployeeByPage_given_page_1_page_size_3() {
-//        //given
-//        Page<Employee> page = new PageImpl<>(employees.subList(0,3));
-//        Pageable pageable = PageRequest.of(0, 3);
-//        given(employeeRepository.findAll(pageable)).willReturn(page);
-//        //when
-//        List<Employee> actualEmployees = employeeService.getEmployeebyPage(1, 3);
-//        //then
-//        assertEquals(employees.subList(0,3), actualEmployees);
-//    }
+    @Test
+    public void should_return_the_first_3_employees_when_getEmployeeByPage_given_page_1_page_size_3() {
+        //given
+        Page<Employee> page = new PageImpl<>(employees.subList(0,3));
+        Pageable pageable = PageRequest.of(0, 3);
+        given(employeeRepository.findAll(pageable)).willReturn(page);
+        //when
+        List<Employee> actualEmployees = employeeService.getEmployeebyPage(1, 3);
+        //then
+        assertEquals(employees.subList(0,3), actualEmployees);
+    }
 
 //    @Test
 //    public void should_return_all_male_employees_when_getEmployeeByGender_given_employees() {
