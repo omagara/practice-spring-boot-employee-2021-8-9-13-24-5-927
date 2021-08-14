@@ -11,6 +11,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -83,23 +87,18 @@ public class CompanyServiceTest {
         assertEquals(employees.subList(0,3), actualEmployees);
     }
 
-//    @Test
-//    public void should_return_the_first_2_companies_when_getCompanyByPage_given_page_1_page_size_2() {
-//        //given
-//        List<Company> companies = new ArrayList<>();
-//        List<Employee> firstEmployeesList = new ArrayList<>();
-//        firstEmployeesList.add(new Employee(1, "Alice", 25, "Female", 10000));
-//        firstEmployeesList.add(new Employee(2, "Bob", 25, "Female", 10000));
-//        companies.add(new Company(12, "XYZ Company", 2, firstEmployeesList));
-//        companies.add(new Company(14, "EFG Company", 2, firstEmployeesList));
-//        companies.add(new Company(16, "ABC Company", 2, firstEmployeesList));
-//        given(retiringCompanyRepository.getCompanyByPage(1, 2)).willReturn(companies.subList(0,2));
-//        //when
-//        List<Company> actualCompanies = companyService.getCompanyByPage(1, 2);
-//        //then
-//        assertEquals(companies.subList(0,2), actualCompanies);
-//    }
-//
+    @Test
+    public void should_return_the_first_2_companies_when_getCompanyByPage_given_page_1_page_size_2() {
+        //given
+        Page<Company> page = new PageImpl<>(companies.subList(0,2));
+        Pageable pageable = PageRequest.of(0, 2);
+        given(companyRepository.findAll(pageable)).willReturn(page);
+        //when
+        List<Company> actualCompanies = companyService.getCompanyByPage(1, 2);
+        //then
+        assertEquals(companies.subList(0,2), actualCompanies);
+    }
+
 //    @Test
 //    public void should_create_a_company_when_addNewCompany_given_company_information() {
 //        //given
