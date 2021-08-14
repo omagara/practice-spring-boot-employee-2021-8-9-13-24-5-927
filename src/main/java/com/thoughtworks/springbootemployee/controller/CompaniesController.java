@@ -2,14 +2,18 @@ package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.dto.CompanyRequest;
 import com.thoughtworks.springbootemployee.dto.CompanyResponse;
+import com.thoughtworks.springbootemployee.dto.EmployeeResponse;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.mapper.CompanyMapper;
+import com.thoughtworks.springbootemployee.mapper.EmployeeMapper;
 import com.thoughtworks.springbootemployee.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/companies")
@@ -21,9 +25,15 @@ public class CompaniesController {
     @Autowired
     private CompanyMapper companyMapper;
 
+    @Autowired
+    private EmployeeMapper employeeMapper;
+
     @GetMapping
-    public List<Company> getAllCompanies(){
-        return companyService.getAllCompanies();
+    public List<CompanyResponse> getAllCompanies(){
+        List<Company> companies = companyService.getAllCompanies();
+        return companies.stream()
+                .map(company -> companyMapper.toResponse(company))
+                .collect(Collectors.toList());
     }
 
     @GetMapping(path = "/{companyId}")
@@ -32,23 +42,32 @@ public class CompaniesController {
     }
 
     @GetMapping(path = "/{companyId}/employees")
-    public List<Employee> getEmployeesByCompany (@PathVariable Integer companyId) {
-        return companyService.getEmployeesByCompany(companyId);
+    public List<EmployeeResponse> getEmployeesByCompany (@PathVariable Integer companyId) {
+        List<Employee> employees = companyService.getEmployeesByCompany(companyId);
+        return employees.stream()
+                .map(employee -> employeeMapper.toResponse(employee))
+                .collect(Collectors.toList());
     }
 
     @GetMapping(params = {"page", "pageSize"})
-    public List<Company> getCompanyByPage (@RequestParam Integer page, @RequestParam Integer pageSize){
-        return companyService.getCompanyByPage(page, pageSize);
+    public List<CompanyResponse> getCompanyByPage (@RequestParam Integer page, @RequestParam Integer pageSize){
+        List<Company> companies = companyService.getCompanyByPage(page,pageSize);
+        return companies.stream()
+                .map(company -> companyMapper.toResponse(company))
+                .collect(Collectors.toList());
     }
 
     @PostMapping
-    public Company addNewCompany (@RequestBody CompanyRequest companyRequest){
-        return companyService.addNewCompany(companyMapper.toEntity(companyRequest));
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public CompanyResponse addNewCompany (@RequestBody CompanyRequest companyRequest){
+        Company company = companyService.addNewCompany(companyMapper.toEntity(companyRequest));
+        return companyMapper.toResponse(company);
     }
 
     @PutMapping (path = "/{companyId}")
-    public Company updateCompanyInfo (@PathVariable Integer companyId, @RequestBody CompanyRequest companyRequest){
-        return companyService.updateCompanyInfo(companyId, companyMapper.toEntity(companyRequest));
+    public CompanyResponse updateCompanyInfo (@PathVariable Integer companyId, @RequestBody CompanyRequest companyRequest){
+        Company company =  companyService.updateCompanyInfo(companyId, companyMapper.toEntity(companyRequest));
+        return companyMapper.toResponse(company);
     }
 
     @DeleteMapping(path = "/{companyId}")
