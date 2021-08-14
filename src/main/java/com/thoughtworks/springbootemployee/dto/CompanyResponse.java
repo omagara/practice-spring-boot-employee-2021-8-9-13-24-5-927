@@ -1,7 +1,5 @@
 package com.thoughtworks.springbootemployee.dto;
 
-import com.thoughtworks.springbootemployee.entity.Employee;
-
 import java.util.List;
 
 
