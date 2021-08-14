@@ -114,17 +114,12 @@ public class EmployeeServiceTest {
         assertNotEquals(employees.get(0).getSalary(), actualEmployee.getSalary());
     }
 
-//    @Test
-//    public void should_delete_an_employee_when_deleteEmployee_given_employee_id() {
-//        //given
-//        Employee employee = new Employee(25, "Ramon", 21,"Male",5000);
-//        EmployeeService service = new EmployeeService(retiringEmployeeRepository);
-//        //when
-//        service.deleteEmployee(employee.getId());
-//        //then
-//        verify(retiringEmployeeRepository, times(1)).deleteEmployee(employee.getId());
-//    }
-
-
-
+    @Test
+    public void should_delete_an_employee_when_deleteEmployee_given_employee_id() {
+        //given
+        //when
+        employeeService.deleteEmployee(employees.get(0).getId());
+        //then
+        verify(employeeRepository, times(1)).deleteById(employees.get(0).getId());
     }
+}
