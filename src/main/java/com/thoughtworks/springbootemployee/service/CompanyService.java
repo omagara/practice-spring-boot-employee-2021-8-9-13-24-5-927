@@ -14,15 +14,14 @@ import java.util.List;
 
 @Service
 public class CompanyService {
-    @Autowired
-    private RetiringCompanyRepository retiringCompanyRepository;
+
     @Autowired
     private CompanyRepository companyRepository;
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    public CompanyService(RetiringCompanyRepository retiringCompanyRepository) {
-        this.retiringCompanyRepository = retiringCompanyRepository;
+    public CompanyService(CompanyRepository companyRepository) {
+        this.companyRepository = companyRepository;
     }
 
     public List<Company> getAllCompanies() {
