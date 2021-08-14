@@ -1,13 +1,22 @@
 package com.thoughtworks.springbootemployee.service;
 
+import com.thoughtworks.springbootemployee.entity.Company;
+import com.thoughtworks.springbootemployee.entity.Employee;
+import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.repository.RetiringCompanyRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -15,24 +24,40 @@ public class CompanyServiceTest {
     @InjectMocks
     private CompanyService companyService;
     @Mock
-    private RetiringCompanyRepository retiringCompanyRepository;
+    private CompanyRepository companyRepository;
 
-//    @Test
-//    public void should_return_all_companies_when_getAllCompanies_given_companies() {
-//        //given
-//        List<Company> companies = new ArrayList<>();
-//        List<Employee> firstEmployeesList = new ArrayList<>();
-//        firstEmployeesList.add(new Employee(1, "Alice", 25, "Female", 10000));
-//        firstEmployeesList.add(new Employee(2, "Bob", 25, "Female", 10000));
-//        companies.add(new Company(12, "XYZ Company", 2, firstEmployeesList));
-//        companies.add(new Company(14, "EFG Company", 2, firstEmployeesList));
-//        companies.add(new Company(16, "ABC Company", 2, firstEmployeesList));
-//        given(retiringCompanyRepository.getAllCompanies()).willReturn(companies);
-//        //when
-//        List<Company> actualCompanies = companyService.getAllCompanies();
-//        //then
-//        assertEquals(companies, actualCompanies);
-//    }
+
+    private List<Company> companies;
+    private List<Employee> employees;
+
+    @BeforeEach
+    public void companyInformation() {
+        companies = Arrays.asList(
+                (new Company(1, "OOCL")),
+                (new Company(2, "COSCO")),
+                (new Company(3, "MSC"))
+        );
+
+        employees = Arrays.asList(
+                (new Employee(1, "Ramon", 21, "Male", 1000, 1)),
+                (new Employee(2, "Bob", 21, "Male", 1100,1)),
+                (new Employee(3, "Carlo", 22, "Female", 1200,1)),
+                (new Employee(4, "Dea", 23, "Female", 1300,2)),
+                (new Employee(5, "Evans", 24, "Male", 1400,2)),
+                (new Employee(6, "Faith", 25, "Female", 1500,3)),
+                (new Employee(7, "Gab", 26, "Male", 1600,3))
+        );
+    }
+
+    @Test
+    public void should_return_all_companies_when_getAllCompanies_given_companies() {
+        //given
+        given(companyRepository.findAll()).willReturn(companies);
+        //when
+        List<Company> actualCompanies = companyService.getAllCompanies();
+        //then
+        assertEquals(companies, actualCompanies);
+    }
 //
 //    @Test
 //    public void should_return_a_company_with_id_12_when_getCompanyById_given_all_companies() {
