@@ -137,4 +137,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.companyName").value("OOCL-PH"));
     }
+
+    @Test
+    void should_delete_a_company_when_deleteCompany_API() throws Exception {
+        //given
+        Company company = companyRepository.save(companies.get(0));
+        Company company1 = companyRepository.save(companies.get(1));
+        Company company2 = companyRepository.save(companies.get(2));
+        //when
+        int companyId = company1.getId();
+        mockMvc.perform(MockMvcRequestBuilders.delete("/companies/{companyId}", companyId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").doesNotExist());
+    }
 }
