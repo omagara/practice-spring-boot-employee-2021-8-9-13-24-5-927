@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.Optional.of;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.BDDMockito.given;
@@ -60,7 +61,7 @@ public class EmployeeServiceTest {
     @Test
     public void should_return_an_employee_with_id_1_when_getAllEmployeesById_given_all_employees() {
         //given
-        given(employeeRepository.findById(1)).willReturn(Optional.of(employees.get(0)));
+        given(employeeRepository.findById(1)).willReturn(of(employees.get(0)));
         //when
         Employee actualEmployees = employeeService.getEmployeesById(1);
         //then
@@ -100,19 +101,19 @@ public class EmployeeServiceTest {
         assertEquals(25, actualEmployee.getId());
     }
 
-//    @Test
-//    public void should_update_an_employee_when_updateEmployeeInfo_given_employee_id() {
-//        //given
-//        Employee employee = new Employee(25, "Ramon", 21,"Male",5000);
-//        Employee updateEmployee = new Employee(25, "Ramon", 22,"Male",5200);
-//        when(retiringEmployeeRepository.updateEmployeeInfo(employee.getId(), employee)).thenReturn(updateEmployee);
-//
-//        //when
-//        Employee actualEmployee = employeeService.updateEmployeeInfo(employee.getId(), employee);
-//        //then
-//        assertNotEquals(employee.getSalary(), actualEmployee.getSalary());
-//    }
-//
+    @Test
+    public void should_update_an_employee_when_updateEmployeeInfo_given_employee_id() {
+        //given
+        Employee updateEmployee = new Employee(1, "Ramon", 22,"Male",5200);
+        Optional<Employee> optionalEmployee = of(updateEmployee);
+        when(employeeRepository.findById(employees.get(0).getId())).thenReturn(optionalEmployee);
+        when(employeeRepository.save(optionalEmployee.get())).thenReturn(updateEmployee);
+        //when
+        Employee actualEmployee = employeeService.updateEmployeeInfo(employees.get(0).getId(), updateEmployee);
+        //then
+        assertNotEquals(employees.get(0).getSalary(), actualEmployee.getSalary());
+    }
+
 //    @Test
 //    public void should_delete_an_employee_when_deleteEmployee_given_employee_id() {
 //        //given
