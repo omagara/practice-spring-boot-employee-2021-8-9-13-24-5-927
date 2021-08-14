@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 @ExtendWith(MockitoExtension.class)
 public class CompanyServiceTest {
@@ -125,22 +126,12 @@ public class CompanyServiceTest {
         assertNotEquals(companies.get(0).getCompanyName(), actualCompany.getCompanyName());
     }
 
-//    @Test
-//    public void should_delete_a_company_when_deleteCompany_given_company_id() {
-//        //given
-//        List<Employee> firstEmployeesList = new ArrayList<>();
-//        firstEmployeesList.add(new Employee(1, "Alice", 25, "Female", 10000));
-//        firstEmployeesList.add(new Employee(2, "Bob", 25, "Female", 10000));
-//        Company company = new Company(15, "XYZ Company", 3, firstEmployeesList);
-//        CompanyService service = new CompanyService(retiringCompanyRepository);
-//        //when
-//        service.deleteCompany(company.getId());
-//        //then
-//        verify(retiringCompanyRepository, times(1)).deleteCompany(company.getId());
-//    }
-
-
-
-
-
+    @Test
+    public void should_delete_a_company_when_deleteCompany_given_company_id() {
+        //given
+        //when
+        companyService.deleteCompany(companies.get(0).getId());
+        //then
+        verify(companyRepository, times(1)).deleteById(companies.get(0).getId());
+    }
 }
