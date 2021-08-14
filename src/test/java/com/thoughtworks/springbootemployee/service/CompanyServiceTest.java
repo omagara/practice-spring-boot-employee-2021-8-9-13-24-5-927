@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class CompanyServiceTest {
@@ -99,20 +100,17 @@ public class CompanyServiceTest {
         assertEquals(companies.subList(0,2), actualCompanies);
     }
 
-//    @Test
-//    public void should_create_a_company_when_addNewCompany_given_company_information() {
-//        //given
-//        List<Employee> firstEmployeesList = new ArrayList<>();
-//        firstEmployeesList.add(new Employee(1, "Alice", 25, "Female", 10000));
-//        firstEmployeesList.add(new Employee(2, "Bob", 25, "Female", 10000));
-//        Company newCompany = new Company(15, "XYZ Company", 3, firstEmployeesList);
-//        when(retiringCompanyRepository.addNewCompany(newCompany)).thenReturn(newCompany);
-//        //when
-//        Company actualCompany = companyService.addNewCompany(newCompany);
-//        //then
-//        assertEquals(15, actualCompany.getId());
-//    }
-//
+    @Test
+    public void should_create_a_company_when_addNewCompany_given_company_information() {
+        //given
+        Company newCompany = new Company(15, "XYZ Company");
+        when(companyRepository.save(newCompany)).thenReturn(newCompany);
+        //when
+        Company actualCompany = companyService.addNewCompany(newCompany);
+        //then
+        assertEquals(15, actualCompany.getId());
+    }
+
 //    @Test
 //    public void should_update__company_information_when_updateCompanyInfo_given_company_id() {
 //        //given
