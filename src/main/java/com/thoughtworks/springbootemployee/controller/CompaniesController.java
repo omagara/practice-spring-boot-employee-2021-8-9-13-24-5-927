@@ -1,7 +1,10 @@
 package com.thoughtworks.springbootemployee.controller;
 
+import com.thoughtworks.springbootemployee.dto.CompanyRequest;
+import com.thoughtworks.springbootemployee.dto.CompanyResponse;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
+import com.thoughtworks.springbootemployee.mapper.CompanyMapper;
 import com.thoughtworks.springbootemployee.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,14 +18,17 @@ public class CompaniesController {
     @Autowired
     private CompanyService companyService;
 
+    @Autowired
+    private CompanyMapper companyMapper;
+
     @GetMapping
     public List<Company> getAllCompanies(){
         return companyService.getAllCompanies();
     }
 
     @GetMapping(path = "/{companyId}")
-    public Company getCompanyById(@PathVariable Integer companyId){
-        return companyService.getCompanyById(companyId);
+    public CompanyResponse getCompanyById(@PathVariable Integer companyId){
+        return companyMapper.toResponse(companyService.getCompanyById(companyId));
     }
 
     @GetMapping(path = "/{companyId}/employees")
@@ -36,13 +42,13 @@ public class CompaniesController {
     }
 
     @PostMapping
-    public Company addNewCompany (@RequestBody Company company){
-        return companyService.addNewCompany(company);
+    public Company addNewCompany (@RequestBody CompanyRequest companyRequest){
+        return companyService.addNewCompany(companyMapper.toEntity(companyRequest));
     }
 
     @PutMapping (path = "/{companyId}")
-    public Company updateCompanyInfo (@PathVariable Integer companyId, @RequestBody Company companyToBeUpdated){
-        return companyService.updateCompanyInfo(companyId,companyToBeUpdated);
+    public Company updateCompanyInfo (@PathVariable Integer companyId, @RequestBody CompanyRequest companyRequest){
+        return companyService.updateCompanyInfo(companyId, companyMapper.toEntity(companyRequest));
     }
 
     @DeleteMapping(path = "/{companyId}")
