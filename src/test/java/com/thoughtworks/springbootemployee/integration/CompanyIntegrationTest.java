@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -101,6 +102,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         mockMvc.perform(MockMvcRequestBuilders.get("/companies?page=1&pageSize=2"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.*", hasSize(2)));
+    }
+
+    @Test
+    void should_create_a_Company_when_addNewCompany_API() throws Exception {
+        //given
+        String newCompany = "{\n" +
+                "        \"companyName\": \"MAERSK\"\n" +
+                "}";
+        //when
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.post("/companies")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(newCompany))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.companyName").value("MAERSK"));
     }
 
 }
