@@ -57,16 +57,16 @@ public class EmployeeServiceTest {
         assertEquals(employees, actualEmployees);
     }
 
-//    @Test
-//    public void should_return_an_employee_with_id_1_when_getAllEmployeesById_given_all_employees() {
-//        //given
-//        given(employeeRepository.findById(1)).willReturn(Optional.of(employees.get(0)));
-//        //when
-//        Employee actualEmployees = employeeService.getEmployeesById(1);
-//        //then
-//        assertEquals(employees.get(0), actualEmployees);
-//    }
-//
+    @Test
+    public void should_return_an_employee_with_id_1_when_getAllEmployeesById_given_all_employees() {
+        //given
+        given(employeeRepository.findById(1)).willReturn(Optional.of(employees.get(0)));
+        //when
+        Employee actualEmployees = employeeService.getEmployeesById(1);
+        //then
+        assertEquals(employees.get(0), actualEmployees);
+    }
+
 //    @Test
 //    public void should_return_the_first_3_employees_when_getEmployeeByPage_given_page_1_page_size_3() {
 //        //given
