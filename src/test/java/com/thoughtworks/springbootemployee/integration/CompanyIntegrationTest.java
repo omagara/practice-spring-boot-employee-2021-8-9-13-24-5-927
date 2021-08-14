@@ -4,6 +4,7 @@ import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -86,4 +88,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.companyName").value("COSCO"));
     }
+
+    @Test
+    void should_return_two_companies_when_getCompanyByPage_API_given_page_1_pag_size_2() throws Exception {
+        //given
+        companyRepository.save(companies.get(0));
+        companyRepository.save(companies.get(1));
+        companyRepository.save(companies.get(2));
+
+        //when
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.get("/companies?page=1&pageSize=2"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.*", hasSize(2)));
+    }
+
 }
