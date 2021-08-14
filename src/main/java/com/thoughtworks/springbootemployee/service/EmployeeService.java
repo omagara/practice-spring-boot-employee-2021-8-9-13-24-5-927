@@ -12,13 +12,12 @@ import java.util.List;
 
 @Service
 public class EmployeeService {
-    @Autowired
-    private RetiringEmployeeRepository retiringEmployeeRepository;
+
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    public EmployeeService(RetiringEmployeeRepository retiringEmployeeRepository) {
-        this.retiringEmployeeRepository = retiringEmployeeRepository;
+    public EmployeeService(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
     }
 
     public List<Employee> getAllEmployees() {
