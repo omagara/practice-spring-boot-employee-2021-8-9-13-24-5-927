@@ -3,6 +3,7 @@ package com.thoughtworks.springbootemployee.service;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
+import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import com.thoughtworks.springbootemployee.repository.RetiringCompanyRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,8 @@ public class CompanyServiceTest {
     private CompanyService companyService;
     @Mock
     private CompanyRepository companyRepository;
+    @Mock
+    private EmployeeRepository employeeRepository;
 
 
     private List<Company> companies;
@@ -70,23 +73,16 @@ public class CompanyServiceTest {
         assertEquals(companies.get(0), actualCompany);
     }
 
-//    @Test
-//    public void should_return_employees_with_company_id_12_when_getEmployeesByCompany_given_companies() {
-//        //given
-//        List<Company> companies = new ArrayList<>();
-//        List<Employee> firstEmployeesList = new ArrayList<>();
-//        firstEmployeesList.add(new Employee(1, "Alice", 25, "Female", 10000));
-//        firstEmployeesList.add(new Employee(2, "Bob", 25, "Female", 10000));
-//        companies.add(new Company(12, "XYZ Company", 2, firstEmployeesList));
-//        companies.add(new Company(14, "EFG Company", 2, firstEmployeesList));
-//        companies.add(new Company(16, "ABC Company", 2, firstEmployeesList));
-//        given(retiringCompanyRepository.getEmployeesByCompany(12)).willReturn(companies.get(0).getEmployees());
-//        //when
-//        List<Employee> actualEmployees = companyService.getEmployeesByCompany(12);
-//        //then
-//        assertEquals(companies.get(0).getEmployees(), actualEmployees);
-//    }
-//
+    @Test
+    public void should_return_employees_with_company_id_1_when_getEmployeesByCompany_given_companies() {
+        //given
+        given(employeeRepository.findByCompanyId(1)).willReturn(employees.subList(0,3));
+        //when
+        List<Employee> actualEmployees = employeeRepository.findByCompanyId(1);
+        //then
+        assertEquals(employees.subList(0,3), actualEmployees);
+    }
+
 //    @Test
 //    public void should_return_the_first_2_companies_when_getCompanyByPage_given_page_1_page_size_2() {
 //        //given
