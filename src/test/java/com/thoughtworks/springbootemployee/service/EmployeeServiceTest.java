@@ -79,21 +79,16 @@ public class EmployeeServiceTest {
         assertEquals(employees.subList(0,3), actualEmployees);
     }
 
-//    @Test
-//    public void should_return_all_male_employees_when_getEmployeeByGender_given_employees() {
-//        //given
-//        List<Employee> employees = new ArrayList<>();
-//        employees.add(new Employee(1, "Alice", 25, "Female", 10000));
-//        employees.add(new Employee(2, "Bobby", 26, "Male", 10000));
-//        employees.add(new Employee(3, "Alicia", 27, "Female", 10000));
-//        employees.add(new Employee(4, "Bob", 28, "Male", 10000));
-//        given(retiringEmployeeRepository.getEmployeebyGender("Male")).willReturn(employees);
-//        //when
-//        List<Employee> actualEmployees = employeeService.getEmployeebyGender("Male");
-//        //then
-//        assertEquals(employees, actualEmployees);
-//    }
-//
+    @Test
+    public void should_return_all_male_employees_when_getEmployeeByGender_given_employees() {
+        //given
+        given(employeeRepository.findAllByGender("Male")).willReturn(employees);
+        //when
+        List<Employee> actualEmployees = employeeService.getEmployeebyGender("Male");
+        //then
+        assertEquals(employees, actualEmployees);
+    }
+
 //    @Test
 //    public void should_create_employees_when_addNewEmployee_given_employee_information() {
 //        //given
