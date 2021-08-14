@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -58,24 +59,17 @@ public class CompanyServiceTest {
         //then
         assertEquals(companies, actualCompanies);
     }
-//
-//    @Test
-//    public void should_return_a_company_with_id_12_when_getCompanyById_given_all_companies() {
-//        //given
-//        List<Company> companies = new ArrayList<>();
-//        List<Employee> firstEmployeesList = new ArrayList<>();
-//        firstEmployeesList.add(new Employee(1, "Alice", 25, "Female", 10000));
-//        firstEmployeesList.add(new Employee(2, "Bob", 25, "Female", 10000));
-//        companies.add(new Company(12, "XYZ Company", 2, firstEmployeesList));
-//        companies.add(new Company(14, "EFG Company", 2, firstEmployeesList));
-//        companies.add(new Company(16, "ABC Company", 2, firstEmployeesList));
-//        given(retiringCompanyRepository.getCompanyById(12)).willReturn(companies.get(0));
-//        //when
-//        Company actualCompany = companyService.getCompanyById(12);
-//        //then
-//        assertEquals(companies.get(0), actualCompany);
-//    }
-//
+
+    @Test
+    public void should_return_a_company_with_id_2_when_getCompanyById_given_all_companies() {
+        //given
+        given(companyRepository.findById(2)).willReturn(Optional.of(companies.get(0)));
+        //when
+        Company actualCompany = companyService.getCompanyById(2);
+        //then
+        assertEquals(companies.get(0), actualCompany);
+    }
+
 //    @Test
 //    public void should_return_employees_with_company_id_12_when_getEmployeesByCompany_given_companies() {
 //        //given
