@@ -20,6 +20,10 @@ public class Company {
     public Company() {
 
     }
+    public Company(Integer id, String companyName) {
+        this.id = id;
+        this.companyName = companyName;
+    }
 
     public void setId(Integer id) {
         this.id = id;

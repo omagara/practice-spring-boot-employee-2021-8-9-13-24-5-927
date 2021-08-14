@@ -4,6 +4,7 @@ import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,14 +31,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         @Autowired
         private EmployeeRepository employeeRepository;
 
+    @AfterEach
+    void tearDown() {
+        companyRepository.deleteAll();
+    }
+
     private List<Employee> firstEmployees, secondEmployees;
     private List<Company> companies;
 
     @BeforeEach
     public void companyInformation() {
         companies = Arrays.asList(
-                (new Company(1, "OOCL", firstEmployees)),
-                (new Company(2, "COSCO", secondEmployees))
+                (new Company(1, "OOCL")),
+                (new Company(2, "COSCO")),
+                (new Company(3, "MSC"))
         );
         firstEmployees = Arrays.asList(
                 (new Employee(1, "Ramon", 21, "Male", 1000, 1)),
@@ -63,4 +71,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                     .andExpect(jsonPath("$[1].id").isNumber())
                     .andExpect(jsonPath("$[1].companyName").value("COSCO"));
         }
+
+    @Test
+    public void should_return_company_with_Id_2_when_getCompanyById_API() throws Exception {
+        //given
+        Company company1 = companyRepository.save(companies.get(0));
+        Company company2 = companyRepository.save(companies.get(1));
+
+        int companyId = company2.getId();
+        //when
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.get("/companies/{companyId}", companyId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.companyName").value("COSCO"));
+    }
 }
