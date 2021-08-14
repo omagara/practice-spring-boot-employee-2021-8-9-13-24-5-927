@@ -39,7 +39,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         companyRepository.deleteAll();
     }
 
-    private List<Employee> firstEmployees, secondEmployees;
     private List<Company> companies;
 
     @BeforeEach
@@ -48,17 +47,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 (new Company(1, "OOCL")),
                 (new Company(2, "COSCO")),
                 (new Company(3, "MSC"))
-        );
-        firstEmployees = Arrays.asList(
-                (new Employee(1, "Ramon", 21, "Male", 1000, 1)),
-                (new Employee(2, "Bob", 21, "Male", 1100,1)),
-                (new Employee(3, "Carlo", 22, "Female", 1200,1)),
-                (new Employee(4, "Dea", 23, "Female", 1300,1))
-        );
-        secondEmployees = Arrays.asList(
-                (new Employee(5, "Evans", 24, "Male", 1400,2)),
-                (new Employee(6, "Faith", 25, "Female", 1500,2)),
-                (new Employee(7, "Gab", 26, "Male", 1600,2))
         );
     }
         @Test
@@ -151,5 +139,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").doesNotExist());
+    }
+
+    @Test
+    void should_return_employees_with_company_id_1_when_getEmployeesByCompany_API() throws Exception {
+        //given
+        Company company = companyRepository.save(companies.get(0));
+        Integer companyId = company.getId();
+        Employee employee1 = employeeRepository.save(new Employee(1, "Tom", 21, "Male",1000, companyId));
+        Employee employee2 = employeeRepository.save(new Employee(2, "Jerry", 22, "Male",1000, companyId));
+
+
+        //when
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.get("/companies/{companyId}/employees", companyId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.*", hasSize(2)));
     }
 }
