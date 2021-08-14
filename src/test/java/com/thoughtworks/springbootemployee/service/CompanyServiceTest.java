@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.Optional.of;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.BDDMockito.given;
@@ -111,21 +112,19 @@ public class CompanyServiceTest {
         assertEquals(15, actualCompany.getId());
     }
 
-//    @Test
-//    public void should_update__company_information_when_updateCompanyInfo_given_company_id() {
-//        //given
-//        List<Employee> firstEmployeesList = new ArrayList<>();
-//        firstEmployeesList.add(new Employee(1, "Alice", 25, "Female", 10000));
-//        firstEmployeesList.add(new Employee(2, "Bob", 25, "Female", 10000));
-//        Company company = new Company(15, "XYZ Company", 3, firstEmployeesList);
-//        Company updatedCompany = new Company(15, "Junior Company", 3, firstEmployeesList);
-//        when(retiringCompanyRepository.updateCompanyInfo(company.getId(), company)).thenReturn(updatedCompany);
-//        //when
-//        Company actualCompany = companyService.updateCompanyInfo(company.getId(), company);
-//        //then
-//        assertNotEquals(company.getCompany_name(), actualCompany.getCompany_name());
-//    }
-//
+    @Test
+    public void should_update__company_information_when_updateCompanyInfo_given_company_id() {
+        //given
+        Company updateCompany = new Company(1, "OOCL-Philippines");
+        Optional<Company> optionalCompany = of(updateCompany);
+        when(companyRepository.findById(companies.get(0).getId())).thenReturn(optionalCompany);
+        when(companyRepository.save(optionalCompany.get())).thenReturn(updateCompany);
+        //when
+        Company actualCompany = companyService.updateCompanyInfo(companies.get(0).getId(), updateCompany);
+        //then
+        assertNotEquals(companies.get(0).getCompanyName(), actualCompany.getCompanyName());
+    }
+
 //    @Test
 //    public void should_delete_a_company_when_deleteCompany_given_company_id() {
 //        //given
