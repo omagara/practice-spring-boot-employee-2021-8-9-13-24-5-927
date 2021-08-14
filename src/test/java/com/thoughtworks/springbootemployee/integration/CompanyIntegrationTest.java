@@ -120,4 +120,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 .andExpect(jsonPath("$.companyName").value("MAERSK"));
     }
 
+    @Test
+    void should_update_a_company_when_updateCompanyInfo_API() throws Exception {
+        //given
+        Company company = companyRepository.save(companies.get(0));
+        int companyId = company.getId();
+        String updatedCompanyInfo = "{\n" +
+                "        \"companyName\": \"OOCL-PH\"\n" +
+                "}\n";
+        //when
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.put("/companies/{companyId}", companyId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updatedCompanyInfo))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.companyName").value("OOCL-PH"));
+    }
 }
